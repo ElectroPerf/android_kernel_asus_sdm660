@@ -58,3 +58,7 @@ config ZRAM_SIZE_OVERRIDE
 	int "zram size to set from kernel"
 	range 1 4
 	default 1
+
+config ZRAM_DEFAULT_COMP_ALGORITHM
+	string "Default ZRAM algorithm"
+	default "zstd"
