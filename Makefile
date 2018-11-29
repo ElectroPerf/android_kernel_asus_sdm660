@@ -1190,7 +1190,7 @@ prepare2: prepare3 outputmakefile asm-generic
 prepare1: prepare2 $(version_h) $(autoksyms_h) include/generated/utsrelease.h
 	$(cmd_crmodverdir)
 
-archprepare: archheaders archscripts prepare1 scripts gcc-plugins
+archprepare: archheaders archscripts prepare1 scripts
 
 prepare0: archprepare
 	$(Q)$(MAKE) $(build)=scripts/mod
