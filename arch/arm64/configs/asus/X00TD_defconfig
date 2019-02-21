@@ -1,6 +1,6 @@
 #
 # Automatically generated file; DO NOT EDIT.
-# Linux/arm64 4.19.219 Kernel Configuration
+# Linux/arm64 4.19.220 Kernel Configuration
 #
 CONFIG_CC_VERSION_TEXT="Atom-X clang version 14.0.0 (https://github.com/llvm/llvm-project 2f07534263ca617420239c9d250dffd9ff527a7a)"
 CONFIG_GCC_VERSION=0
@@ -162,7 +162,7 @@ CONFIG_CGROUP_BPF=y
 # CONFIG_CGROUP_DEBUG is not set
 CONFIG_SOCK_CGROUP_DATA=y
 CONFIG_NAMESPACES=y
-CONFIG_UTS_NS=y
+# CONFIG_UTS_NS is not set
 # CONFIG_USER_NS is not set
 # CONFIG_PID_NS is not set
 CONFIG_NET_NS=y
