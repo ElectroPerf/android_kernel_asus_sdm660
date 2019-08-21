@@ -1,4 +1,4 @@
-/* Copyright (c) 2017-2018, The Linux Foundation. All rights reserved.
+/* Copyright (c) 2017, The Linux Foundation. All rights reserved.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -10,7 +10,16 @@
  * GNU General Public License for more details.
  */
 
-#include "sdm660-qrd.dtsi"
-/ {
+&msm_sdw_codec {
+	status = "disabled";
 };
 
+&cdc_sdw_gpios {
+	status = "disabled";
+};
+
+/*
+&cdc_dmic_gpios {
+	status = "disabled";
+};
+*/

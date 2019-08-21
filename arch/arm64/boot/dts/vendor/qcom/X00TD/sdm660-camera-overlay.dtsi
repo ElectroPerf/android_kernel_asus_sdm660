@@ -10,7 +10,14 @@
  * GNU General Public License for more details.
  */
 
-#include "sdm660-qrd.dtsi"
-/ {
+&i2c_freq_100Khz {
+	qcom,hw-scl-stretch-en = <1>;
 };
 
+&i2c_freq_400Khz {
+	qcom,hw-scl-stretch-en = <1>;
+};
+
+&i2c_freq_1Mhz {
+	qcom,hw-scl-stretch-en = <1>;
+};

@@ -1,0 +1,68 @@
+/* Copyright (c) 2016-2017, The Linux Foundation. All rights reserved.
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2 and
+ * only version 2 as published by the Free Software Foundation.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ */
+
+&spmi_bus {
+	qcom,pm660@0 {
+		qcom,power-on@800 {
+			qcom,pon_1 {
+				qcom,support-reset = <1>;
+				qcom,s1-timer = <10256>;
+				qcom,s2-timer = <10>;
+				qcom,s2-type = <4>;
+			};
+		};
+	};
+};
+
+&pm660_vadc {
+	pa_therm0 {
+		qcom,hw-settle-time = <10>; /* 10 ms */
+	};
+};
+
+&pm660_charger {
+	qcom,micro-usb;
+	qcom,fv-max-uv = <4350000>;
+	qcom,float-option = <1>;
+	qcom,auto-recharge-soc;
+};
+
+&pm660_pdphy {
+	status = "disabled";
+};
+
+&pm660_fg {
+	qcom,fg-esr-timer-asleep = <160 256>;
+	qcom,fg-cutoff-voltage = <3400>;
+	qcom,fg-empty-voltage = <2800>;
+	qcom,fg-esr-tight-filter-micro-pct = <20000>;
+	qcom,fg-esr-broad-filter-micro-pct = <25000>;
+	qcom,fg-esr-tight-lt-filter-micro-pct = <2000>;
+	qcom,fg-esr-broad-lt-filter-micro-pct = <2200>;
+	qcom,slope-limit-temp-threshold = <150>;
+	qcom,slope-limit-coeffs = <1 1 1 1>;
+	qcom,fg-chg-term-current = <150>;
+	qcom,fg-sys-term-current = <(-200)>;
+	qcom,hold-soc-while-full;
+	qcom,linearize-soc;
+	qcom,fg-force-load-profile;
+	qcom,fg-jeita-thresholds = <0 1 59 60>;
+	qcom,fg-jeita-hyst-temp = <3>;
+	qcom,fg-recharge-voltage = <4150>;
+	qcom,fg-recharge-soc-thr = <98>;
+	qcom,fg-auto-recharge-soc;
+	qcom,fg-rsense-sel=<1>;
+};
+
+&pm660_haptics {
+	qcom,actuator-type = "erm";
+};
