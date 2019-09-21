@@ -445,7 +445,7 @@ endif
 
 quiet_cmd_ar_builtin = AR      $@
       cmd_ar_builtin = rm -f $@; \
-                     $(AR) rcSTP$(KBUILD_ARFLAGS) $@ $(filter $(real-obj-y), $^)
+                     $(AR) cDPrST $@ $(filter $(real-obj-y), $^)
 
 quiet_cmd_ar_and_symver = AR      $@
       cmd_ar_and_symver = $(cmd_update_lto_symversions); $(cmd_ar_builtin)
