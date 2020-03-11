@@ -1,4 +1,5 @@
 # SPDX-License-Identifier: GPL-2.0-only
+
 config SENSORS_SSC
 	bool "Enable Sensors Driver Support for SSC"
 	help
@@ -20,3 +21,10 @@ config INPUT_STK3335
 	select SENSORS_CLASS
 	help
 	  Say Y here to enable the STK3335 ALSPS Sensor.
+
+config INPUT_STK3321
+	tristate "STK STK3321 alsps sensor"
+	depends on MACH_ASUS_X00T && I2C
+	select SENSORS_CLASS
+	help
+	  Say Y here to enable the STK3321 ALSPS Sensor.
