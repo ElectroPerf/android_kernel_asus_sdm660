@@ -197,3 +197,7 @@
 		stk,transmittance = <1100>;
 	};
 };
+
+&i2c_4 {
+	qcom,disable-dma;
+};
