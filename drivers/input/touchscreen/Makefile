@@ -113,4 +113,5 @@ obj-$(CONFIG_TOUCHSCREEN_ST)		+= st/
 obj-$(CONFIG_TOUCHSCREEN_SYNAPTICS_DSX) += synaptics_dsx/
 obj-$(CONFIG_TOUCHSCREEN_SYNAPTICS_TCM)	+= synaptics_tcm/
 obj-$(CONFIG_TOUCHSCREEN_FTS)	+= focaltech_touch/
-obj-$(CONFIG_TOUCHSCREEN_NT36XXX)	+= nt36xxx/
+obj-$(CONFIG_TOUCHSCREEN_NT36xxx_X01BD)         += NVT_Touch_X01BD/
+obj-$(CONFIG_TOUCHSCREEN_HIMAX_CHIPSET_X01BD)   += hxchipset_X01BD/
