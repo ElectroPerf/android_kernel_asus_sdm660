@@ -10,6 +10,19 @@
  * GNU General Public License for more details.
  */
 
+/ {
+	reserved-memory {
+		ramoops {
+			compatible = "removed-dma-pool", "ramoops";
+			no-map;
+			reg = <0x0 0x9ff00000 0x0 0x00400000>;
+			console-size = <0x200000>;
+			pmsg-size = <0x200000>;
+			status = "ok";
+		};
+	};
+};
+
 &firmware {
 	android {
 		vbmeta {
