@@ -22,6 +22,7 @@
 	};
 
 	/delete-node/ cam_vaf_gpio_regulator;
+	/delete-node/ cam_rear_dvdd_fixed_regulator;
 };
 
 &cci {
