@@ -491,7 +491,7 @@ static int is_ext_hph_gpio_support(struct platform_device *pdev,
 	return 0;
 }
 
-static int enable_hph_ext_sw(struct snd_soc_codec *codec, int enable)
+static int enable_hph_ext_sw(struct snd_soc_component *component, int enable)
 {
 	return 0;
 }
