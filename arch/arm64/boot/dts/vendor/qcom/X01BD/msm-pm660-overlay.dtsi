@@ -14,10 +14,11 @@
 };
 
 &pm660_gpios {
-	gpio@cb00 {
-		status = "ok";
-		qcom,master-en = <0>;
-	};
+	asus_usb_alert {
+		asus_usb_alert_default: asus_usb_alert_default {
+			pins = "gpio12";
+			function = "normal";
+		};
 };
 
 &pm660_vadc {
@@ -26,6 +27,8 @@
 		reg = <VADC_P_MUX10_1_1>;
 		qcom,pre-scaling = <1 1>;
 		qcom,hw-settle-time = <200>;
+		pinctrl-names = "default";
+		pinctrl-0 = <&asus_usb_alert_default>;
 	};
 
 	gpio3_adc {
@@ -35,6 +38,8 @@
 		qcom,decimation = <1024>;
 		qcom,pre-scaling = <1 1>;
 		qcom,hw-settle-time = <200>;
+		pinctrl-names = "default";
+		pinctrl-0 = <&asus_adapter_id_default>;
 	};
 };
 
