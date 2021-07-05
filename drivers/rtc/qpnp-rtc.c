@@ -218,6 +218,53 @@ rtc_rw_fail:
 	return rc;
 }
 
+#ifdef CONFIG_MACH_ASUS_SDM660
+//Huaqin add by jianghao at 2019/05/13 start 
+struct qpnp_rtc *asus_rtc_dd;
+unsigned long asus_qpnp_rtc_read_time(void)
+{
+	int rc = -1;
+	u8 value[4], reg;
+	unsigned long secs;
+
+	if(!asus_rtc_dd){
+		pr_err("asus rtc add is NULL!\n");
+		return rc;
+	}
+
+	rc = qpnp_read_wrapper(asus_rtc_dd, value,
+				asus_rtc_dd->rtc_base + REG_OFFSET_RTC_READ,
+				NUM_8_BIT_RTC_REGS);
+	if (rc) {
+		pr_err("Read from RTC reg failed\n");
+		return rc;
+	}
+	/*
+	 * Read the LSB again and check if there has been a carry over
+	 * If there is, redo the read operation
+	 */
+	rc = qpnp_read_wrapper(asus_rtc_dd, &reg,
+				asus_rtc_dd->rtc_base + REG_OFFSET_RTC_READ, 1);
+	if (rc) {
+		pr_err("Read from RTC reg failed\n");
+		return rc;
+	}
+	if (reg < value[0]) {
+		rc = qpnp_read_wrapper(asus_rtc_dd, value,
+				asus_rtc_dd->rtc_base + REG_OFFSET_RTC_READ,
+				NUM_8_BIT_RTC_REGS);
+		if (rc) {
+			pr_err("Read from RTC reg failed\n");
+			return rc;
+		}
+	}
+
+	secs = TO_SECS(value);
+	return secs;
+}
+//Huaqin add by jianghao at 2019/05/13 end
+#endif
+
 static int
 qpnp_rtc_read_time(struct device *dev, struct rtc_time *tm)
 {
@@ -488,6 +535,10 @@ static int qpnp_rtc_probe(struct platform_device *pdev)
 		dev_err(&pdev->dev, "Couldn't get parent's regmap\n");
 		return -EINVAL;
 	}
+
+#ifdef CONFIG_MACH_ASUS_SDM660
+	asus_rtc_dd = rtc_dd;
+#endif
 
 	/* Get the rtc write property */
 	rc = of_property_read_u32(pdev->dev.of_node, "qcom,qpnp-rtc-write",
