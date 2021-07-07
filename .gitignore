@@ -23,6 +23,10 @@
 *.gz
 *.i
 *.ko
+clang
+gcc*
+out
+Any*
 *.lex.c
 *.ll
 *.lst
