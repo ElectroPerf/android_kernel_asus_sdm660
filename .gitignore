@@ -135,3 +135,12 @@ all.config
 
 # fetched Android config fragments
 kernel/configs/android-*.cfg
+
+# out dir
+/out
+
+# clang dir
+/clang
+
+# AnyKernel Dir
+/AnyKernel3
