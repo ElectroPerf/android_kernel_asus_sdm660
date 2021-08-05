@@ -1,6 +1,6 @@
-/* 
+/*
  * Copyright (C) 2014-2020 NXP Semiconductors, All Rights Reserved.
- * Copyright 2020 GOODIX 
+ * Copyright 2020 GOODIX
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 as
@@ -3888,10 +3888,11 @@ enum tfa_error tfa_dev_set_state(struct tfa_device *tfa, enum tfa_state state, i
 								 /* Depending on our previous state we need to set 3 bits */
 		TFA_SET_BF(tfa, PWDN, 0);	/* Coming from state 0 */
 		TFA_SET_BF(tfa, MANSCONF, 1);	/* Coming from state 1 */
-		if (!tfa->is_probus_device)
-			TFA_SET_BF(tfa, SBSL, 1);	/* Coming from state 6 */
-		else
-			TFA_SET_BF(tfa, AMPE, 1);	/* No SBSL for probus device, we set AMPE to 1  */
+#ifdef CONFIG_SND_SOC_TFA9874
+		TFA_SET_BF(tfa, AMPE, 1);	/* Coming from state 6 */
+#else
+		TFA_SET_BF(tfa, SBSL, 1);	/* Coming from state 6 */
+#endif
 
 										/*
 										* Disable MTP clock to protect memory.
