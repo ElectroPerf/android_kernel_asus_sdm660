@@ -1,6 +1,6 @@
-/* 
+/*
  * Copyright (C) 2014-2020 NXP Semiconductors, All Rights Reserved.
- * Copyright 2020 GOODIX 
+ * Copyright 2020 GOODIX
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 as
@@ -26,15 +26,7 @@ extern "C" {
 #include "TFA_I2C.h"
 #endif
 
-/* Linux kernel module defines TFA98XX_GIT_VERSIONS in the linux_driver/Makefile */
-#if !defined(TFA98XX_GIT_VERSIONS)
-#include "versions.h"
-#endif
-#ifdef TFA98XX_GIT_VERSIONS
-  #define TFA98XX_API_REV_STR "v6.7.11"/*TFA98XX_GIT_VERSIONS*/
-#else
-  #define TFA98XX_API_REV_STR "v6.7.11"
-#endif
+#define TFA98XX_API_REV_STR "v6.7.11"
 
 #include "tfa_device.h"
 
