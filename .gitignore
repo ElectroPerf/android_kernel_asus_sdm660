@@ -141,3 +141,10 @@ arch/arm64/boot/dts/vendor/
 
 # Tech package directories
 techpack/
+
+# AtomX work and output folders
+AtomX.sh
+Modules.sh
+Regen.sh
+out/
+work/
