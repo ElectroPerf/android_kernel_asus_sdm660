@@ -259,6 +259,7 @@ static int lpm_dying_cpu(unsigned int cpu)
 	struct lpm_cluster *cluster = per_cpu(cpu_lpm, cpu)->parent;
 
 	cluster_prepare(cluster, get_cpu_mask(cpu), NR_LPM_LEVELS, false, 0);
+
 	return 0;
 }
 
