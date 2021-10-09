@@ -2142,7 +2142,7 @@ void sched_migrate_to_cpumask_start(struct cpumask *old_mask,
 	struct task_struct *p = current;
 
 	raw_spin_lock_irq(&p->pi_lock);
-	*cpumask_bits(old_mask) = *cpumask_bits(&p->cpus_allowed);
+	*cpumask_bits(old_mask) = *cpumask_bits(p->cpus_ptr);
 	raw_spin_unlock_irq(&p->pi_lock);
 
 	/*
@@ -2163,7 +2163,7 @@ void sched_migrate_to_cpumask_end(const struct cpumask *old_mask,
 	 * cpumask. There's no need to immediately migrate right now.
 	 */
 	raw_spin_lock_irq(&p->pi_lock);
-	if (*cpumask_bits(&p->cpus_allowed) == *cpumask_bits(dest)) {
+	if (*cpumask_bits(p->cpus_ptr) == *cpumask_bits(dest)) {
 		struct rq *rq = this_rq();
 
 		raw_spin_lock(&rq->lock);
