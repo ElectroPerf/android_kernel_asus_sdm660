@@ -1,0 +1,28 @@
+menu "Asus board selection"
+
+config MACH_ASUS
+	bool "Asus device"
+	depends on ARCH_QCOM
+	help
+	  Support for Asus products
+
+config MACH_ASUS_SDM660
+	bool "Asus SDM660"
+	depends on ARCH_SDM660
+	select MACH_ASUS
+	help
+	  Support for Asus SDM660 devices
+
+config MACH_ASUS_X00TD
+	bool "ZenFone Max Pro (M1)"
+	select MACH_ASUS_SDM660
+	help
+	  This enables support for ASUS ZenFone Max Pro (M1).
+
+config MACH_ASUS_X01BD
+	bool "ZenFone Max Pro (M2)"
+	select MACH_ASUS_SDM660
+	help
+	  This enables support for ASUS ZenFone Max Pro (M2).
+
+endmenuMACH_ASUS
