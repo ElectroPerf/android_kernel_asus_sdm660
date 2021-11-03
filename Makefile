@@ -590,7 +590,8 @@ ifeq ($(KBUILD_EXTMOD),)
 core-y		:= init/ usr/
 drivers-y	:= drivers/ sound/ techpack/
 drivers-$(CONFIG_SAMPLES) += samples/
-drivers-y	+= net/ virt/
+drivers-$(CONFIG_NET) += net/
+drivers-y	+= virt/
 libs-y		:= lib/
 endif # KBUILD_EXTMOD
 
