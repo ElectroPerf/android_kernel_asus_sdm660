@@ -581,18 +581,19 @@ endif
 
 export KBUILD_MODULES KBUILD_BUILTIN
 
+ifeq ($(dot-config),1)
+include include/config/auto.conf
+endif
+
 ifeq ($(KBUILD_EXTMOD),)
 # Objects we will link into vmlinux / subdirs we need to visit
 core-y		:= init/ usr/
 drivers-y	:= drivers/ sound/ techpack/
+drivers-$(CONFIG_SAMPLES) += samples/
 net-y		:= net/
 libs-y		:= lib/
 virt-y		:= virt/
 endif # KBUILD_EXTMOD
-
-ifeq ($(dot-config),1)
-include include/config/auto.conf
-endif
 
 # The all: target is the default when no target is given on the
 # command line.
@@ -1086,7 +1087,7 @@ export KBUILD_VMLINUX_LIBS := $(libs-y1)
 export KBUILD_LDS          := arch/$(SRCARCH)/kernel/vmlinux.lds
 export LDFLAGS_vmlinux
 # used by scripts/package/Makefile
-export KBUILD_ALLDIRS := $(sort $(filter-out arch/%,$(vmlinux-alldirs)) arch Documentation include samples scripts tools)
+export KBUILD_ALLDIRS := $(sort $(filter-out arch/%,$(vmlinux-alldirs)) arch Documentation include scripts tools)
 
 vmlinux-deps := $(KBUILD_LDS) $(KBUILD_VMLINUX_OBJS) $(KBUILD_VMLINUX_LIBS)
 
@@ -1130,11 +1131,8 @@ ifdef CONFIG_GDB_SCRIPTS
 endif
 	+$(call if_changed,link-vmlinux)
 
-# Build samples along the rest of the kernel. This needs headers_install.
-ifdef CONFIG_SAMPLES
-vmlinux-dirs += samples
+# Some samples need headers_install.
 samples: headers_install
-endif
 
 # The actual objects are generated when descending,
 # make sure no implicit rule kicks in
@@ -1428,7 +1426,7 @@ MRPROPER_FILES += .config .config.old .version \
 #
 clean: rm-dirs  := $(CLEAN_DIRS)
 clean: rm-files := $(CLEAN_FILES)
-clean-dirs      := $(addprefix _clean_, . $(vmlinux-alldirs) Documentation samples)
+clean-dirs      := $(addprefix _clean_, . $(vmlinux-alldirs) Documentation)
 
 PHONY += $(clean-dirs) clean archclean vmlinuxclean
 $(clean-dirs):
