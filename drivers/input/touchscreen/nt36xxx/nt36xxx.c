@@ -1142,9 +1142,9 @@ static int8_t nvt_ts_check_chip_ver_trim(uint32_t chip_ver_trim_addr)
 		CTP_I2C_WRITE(ts->client, I2C_HW_Address, buf, 2);
 		msleep(10);
 
-		nvt_set_page(I2C_BLDR_Address, chip_ver_trim_addr);
+		nvt_set_page(I2C_BLDR_Address, 0x1F64E);
 
-		buf[0] = chip_ver_trim_addr & 0xFF;
+		buf[0] = 0x4E;
 		buf[1] = 0x00;
 		buf[2] = 0x00;
 		buf[3] = 0x00;
