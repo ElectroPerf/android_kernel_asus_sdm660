@@ -571,8 +571,8 @@ static void pm_qos_irq_notify(struct irq_affinity_notify *notify,
 	spin_unlock_irqrestore(&pm_qos_lock, flags);
 
 	if (affinity_changed)
-		pm_qos_update_target(c, &req->node, PM_QOS_UPDATE_REQ, req->node.prio
-				false);
+		pm_qos_update_target(c, &req->node, PM_QOS_UPDATE_REQ,
+				     req->node.prio, false);
 }
 #endif
 
