@@ -104,24 +104,22 @@ vmlinux_link()
 {
 	local lds="${objtree}/${KBUILD_LDS}"
 	local objects
+	local objs
+	local libs
+
+	if [ -n "${CONFIG_LTO_CLANG}" ]; then
+		# Use vmlinux.o instead of performing the slow LTO link again.
+		objs=vmlinux.o
+		libs=
+	else
+		objs="${KBUILD_VMLINUX_OBJS}"
+		libs="${KBUILD_VMLINUX_LIBS}"
+	fi
 
 	if [ "${SRCARCH}" != "um" ]; then
-		if [ -n "${CONFIG_LTO_CLANG}" ]; then
-			# Use vmlinux.o instead of performing the slow LTO
-			# link again.
-			objects="--whole-archive	\
-				vmlinux.o 				\
-				--no-whole-archive		\
-				${1}"
-		else
-			objects="--whole-archive	\
-				${KBUILD_VMLINUX_OBJS}	\
-				--no-whole-archive		\
-				--start-group			\
-				${KBUILD_VMLINUX_LIBS}	\
-				--end-group
-				${1}"
-		fi
+		objects="--whole-archive ${objs} --no-whole-archive	\
+			 --start-group ${libs} --end-group		\
+			${1}"
 
 		${LD} ${KBUILD_LDFLAGS} ${LDFLAGS_vmlinux} -o ${2}	\
 			-T ${lds} ${objects}
