@@ -102,10 +102,11 @@ modpost_link()
 # ${2} - output file
 vmlinux_link()
 {
-	local lds="${objtree}/${KBUILD_LDS}"
-	local objects
 	local objs
 	local libs
+	local ld
+	local ldflags
+	local ldlibs
 
 	if [ -n "${CONFIG_LTO_CLANG}" ]; then
 		# Use vmlinux.o instead of performing the slow LTO link again.
@@ -116,28 +117,24 @@ vmlinux_link()
 		libs="${KBUILD_VMLINUX_LIBS}"
 	fi
 
-	if [ "${SRCARCH}" != "um" ]; then
-		objects="--whole-archive ${objs} --no-whole-archive	\
-			 --start-group ${libs} --end-group		\
-			${1}"
-
-		${LD} ${KBUILD_LDFLAGS} ${LDFLAGS_vmlinux} -o ${2}	\
-			-T ${lds} ${objects}
+	if [ "${SRCARCH}" = "um" ]; then
+		wl=-Wl,
+		ld="${CC}"
+		ldflags="${CFLAGS_vmlinux}"
+		ldlibs="-lutil -lrt -lpthread"
 	else
-		objects="-Wl,--whole-archive	\
-			${KBUILD_VMLINUX_OBJS}		\
-			-Wl,--no-whole-archive		\
-			-Wl,--start-group			\
-			${KBUILD_VMLINUX_LIBS}		\
-			-Wl,--end-group				\
-			${1}"
-
-		${CC} ${CFLAGS_vmlinux} -o ${2}	\
-			-Wl,-T,${lds}				\
-			${objects}					\
-			-lutil -lrt -lpthread
-		rm -f linux
+		wl=
+		ld="${LD}"
+		ldflags="${KBUILD_LDFLAGS} ${LDFLAGS_vmlinux}"
+		ldlibs=
 	fi
+
+	ldflags="${ldflags} ${wl}--script=${objtree}/${KBUILD_LDS}"
+
+	${ld} ${ldflags} -o ${2}					\
+		${wl}--whole-archive ${objs} ${wl}--no-whole-archive	\
+		${wl}--start-group ${libs} ${wl}--end-group		\
+		${1} ${ldlibs}
 }
 
 # Create ${2} .o file with all symbols from the ${1} object file
